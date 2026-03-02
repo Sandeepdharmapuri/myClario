@@ -1,4 +1,4 @@
-# 🤖 GrowStackAI Automation Testing Framework
+# 🤖 MyClario Automation Testing Framework
 
 A comprehensive end-to-end automation framework for testing the GrowStack AI platform, covering AI functionalities, UI components, and robust backend integrations.
 
