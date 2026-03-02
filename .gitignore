@@ -1,0 +1,13 @@
+# Ignore build output
+/target/
+
+# Ignore dynamic test report folders
+/test-reports*/
+/test-output*/
+/target/
+# Ignore all test output
+/test-output/
+
+.classpath
+.vscode/settings.json
+.classpath
