@@ -12,7 +12,8 @@ import io.cucumber.testng.CucumberOptions;
   //tags = "SigninPage or @AddContact or @UpdateContact or @DeleteContact",
   plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
 )
-public class Myrunner extends AbstractTestNGCucumberTests 
+public class RunCucumberTest extends AbstractTestNGCucumberTests 
 {
-	
+
+
 }
