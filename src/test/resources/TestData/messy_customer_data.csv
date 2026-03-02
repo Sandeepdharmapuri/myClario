@@ -1,0 +1,10 @@
+Customer_ID,Full_Name,Email,Phone,Country,Join_Date,Purchase_Amount
+101,John Smith,johnsmith@gmail.com,9876543210,USA,2024/05/12,120.5
+102,Jane  Doe,jane_doe@GMAIL.COM,  ,United States,05-18-2024,89
+103,Maria Garcia,mariagarcia@mail,9998887776,us,2024-07-01,250.0
+104,Robert,,1234567890,Canada,2024/07/15,
+105,Li Wei,liwei@hotmail.com,9988776655,China,15/08/2024,320.5
+101,John Smith,johnsmith@gmail.com,9876543210,U.S.A,2024/05/12,120.5
+106,Amar Singh,amar.singh@outlook,  ,India,2024-09-01,NaN
+107,,noemail@,98765abcde,IND,09-15-2024,500
+108,Ana Silva,ana.silva@gmail.com,5556667777,Brazil,2024.10.10,450.25

@@ -1,0 +1,11 @@
+test_name,test_group,visitors,conversions,conversion_rate,start_date,end_date
+Homepage Redesign,Control,10000,450,4.50%,2024-01-01,2024-01-14
+Homepage Redesign,Variant,10500,567,5.40%,2024-01-01,2024-01-14
+Checkout Button Color,Control,8000,320,4.00%,2024-02-01,2024-02-14
+Checkout Button Color,Variant,8200,410,5.00%,2024-02-01,2024-02-14
+Pricing Page CTA Text,Control,12000,480,4.00%,2024-03-01,2024-03-14
+Pricing Page CTA Text,Variant,11800,472,4.00%,2024-03-01,2024-03-14
+Mobile Popup Timing,Control,7500,225,3.00%,2024-04-01,2024-04-14
+Mobile Popup Timing,Variant,7600,380,5.00%,2024-04-01,2024-04-14
+Empty Test,Control,0,0,0%,2024-05-01,2024-05-14
+Empty Test,Variant,0,0,0%,2024-05-01,2024-05-14
