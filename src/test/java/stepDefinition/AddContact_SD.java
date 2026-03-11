@@ -41,11 +41,13 @@ public class AddContact_SD {
 				//WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 				
 			   contactsPage.Click_Contacts_Link();
+			   
 			}
 
 			@When("User click on Add_contact button")
 			public void user_click_on_add_contact_button() {
 				contactsPage.Click_AddContact_Button();
+				
 			}
 
 //			@When("I enter First Name,Last Name,Email and Phone Number")

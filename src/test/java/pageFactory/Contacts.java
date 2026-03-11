@@ -26,7 +26,7 @@ public class Contacts
  		this.driver = driver;
  	    PageFactory.initElements(driver, this);
  	    // initialize wait after driver is set to avoid NPE
- 	    this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+ 	    this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(5));
  	   
  	}
  	 
@@ -97,6 +97,9 @@ public class Contacts
 	
 	@FindBy(xpath = "//span[@title='Sandy Kumar']")
 	WebElement Created_ContactName_in_ContactsList;
+	
+	@FindBy(xpath = "//div[@class='flex items-center gap-2 w-full']/span [@title='Status: Duplicate - Needs Review']")
+	WebElement Duplicate_Contact_Status_in_ContactsList;
 
    public void Enter_FirstName(String FirstName) 
  	 {
@@ -354,4 +357,7 @@ public void EnteruserDetails() throws Throwable {
  	   wait.until(ExpectedConditions.visibilityOf(Created_ContactName_in_ContactsList));
  	   return Created_ContactName_in_ContactsList.getText();
  	 }
+ 	 
+ 	
+
 }
