@@ -20,7 +20,9 @@ public class Download_upload_page {
     public Download_upload_page(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        // Reduced timeout and polling interval for faster fail detection
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        this.wait.pollingEvery(Duration.ofMillis(100));
     }
 	
     
@@ -52,10 +54,11 @@ public class Download_upload_page {
     
     public void click_Download_Template_Button() {
     	wait.until(ExpectedConditions.elementToBeClickable(Download_Template_Button));
-		 Download_Template_Button.click();
-		// Toast messages typically disappear within 2-3 seconds, no need to wait full 5 seconds
+		Download_Template_Button.click();
+		// Use a shorter timeout for toast messages that disappear quickly (typically 2-3 seconds)
+		WebDriverWait toastWait = new WebDriverWait(driver, Duration.ofSeconds(2));
 		try {
-			wait.until(ExpectedConditions.invisibilityOf(Template_Download_Success_Toast_Message));
+			toastWait.until(ExpectedConditions.invisibilityOf(Template_Download_Success_Toast_Message));
 		} catch (Exception e) {
 			// Toast might have already disappeared, continue
 		}
@@ -94,9 +97,10 @@ public class Download_upload_page {
 		String filePath = "C:/Users/SandeepKumarDharmapu/Downloads/myClario-main/myClario-main/src/test/resources/TestData/Builk_upload.xlsx";
 		fileInput.sendKeys(filePath);
 
-		// 5) Wait for success indicator with exception handling (non-blocking)
+		// 5) Wait for success indicator with short timeout for toast that disappears quickly
+		WebDriverWait toastWait = new WebDriverWait(driver, Duration.ofSeconds(2));
 		try {
-			wait.until(ExpectedConditions.visibilityOf(Upload_Success_Toast_Message));
+			toastWait.until(ExpectedConditions.visibilityOf(Upload_Success_Toast_Message));
 		} catch (Exception e) {
 			// Toast might appear briefly or not at all, continue
 		}

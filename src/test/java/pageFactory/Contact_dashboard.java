@@ -35,48 +35,174 @@ public class Contact_dashboard {
 
     @FindBy(xpath = "(//div[@class='grid gap-1']/div[contains(text(),'Contact Updated')])[2]")
     WebElement Contact_Unique_Toast_Message;
+    
+    @FindBy(xpath = "//button[contains(text(),'Merge')]")
+    WebElement Merge_Button;
+    
+    @FindBy(xpath = "//button[contains(text(),'Cancel')]")
+    WebElement Cancel_Button;
 
 
-    public boolean verify_Duplicate_Contact_Added() throws Throwable {
+    public boolean verify_Duplicate_Contact_Added() {
 
         boolean anyReviewFound = false;
-        boolean reviewFound = true;
+        int maxAttempts = 10;  // ✅ Added: Prevent infinite loops
+        int attempts = 0;
 
-        while (reviewFound) {
-            reviewFound = false;
+        while (attempts < maxAttempts) {
 
-            // ✅ Re-fetch rows every iteration to avoid StaleElementReferenceException
-       
+            attempts++;
+
+            // ✅ Re-fetch rows every iteration
+            List<WebElement> rows = driver.findElements(By.xpath("//table/tbody/tr"));
+
+            boolean foundReview = false;
             for (WebElement row : rows) {
 
                 if (row.getText().contains("Review")) {
-                    reviewFound = true;
+
+                    foundReview = true;
                     anyReviewFound = true;
 
-                    // ✅ Click the three-dot menu button in this specific row
                     WebElement threeDotButton = row.findElement(
-                        By.xpath(".//button[.//span[text()='Open menu']]")
-                    );
+                            By.xpath(".//button[.//span[text()='Open menu']]"));
+
                     threeDotButton.click();
 
-                    // ✅ Wait for the dropdown option to be visible before clicking
-                    wait.until(ExpectedConditions.visibilityOf(Review_Duplicate_option));
-                    Review_Duplicate_option.click();
+                    wait.until(ExpectedConditions.elementToBeClickable(Review_Duplicate_option)).click();
 
-                    // ✅ Wait for the button to be clickable before clicking
-                    wait.until(ExpectedConditions.elementToBeClickable(Keep_as_Unique_Button));
-                    Keep_as_Unique_Button.click();
+                    wait.until(ExpectedConditions.elementToBeClickable(Keep_as_Unique_Button)).click();
 
-                    // ✅ Wait for toast to appear first, then disappear
+                    // Wait for toast appear then disappear
                     wait.until(ExpectedConditions.visibilityOf(Contact_Unique_Toast_Message));
                     wait.until(ExpectedConditions.invisibilityOf(Contact_Unique_Toast_Message));
 
-                    // ✅ Break to re-fetch rows after DOM update
                     break;
                 }
+            }
+            
+            // ✅ Exit loop if no review found in this iteration
+            if (!foundReview) {
+                break;
             }
         }
 
         return anyReviewFound;
     }
+    
+	public boolean verify_Contact_Merged() throws Throwable {
+		boolean anyReviewFound = false;
+		int maxAttempts = 10; // ✅ Added: Prevent infinite loops
+		int attempts = 0;
+
+		while (attempts < maxAttempts) {
+
+			attempts++;
+
+			// ✅ Re-fetch rows every iteration
+			List<WebElement> rows = driver.findElements(By.xpath("//table/tbody/tr"));
+			
+			boolean foundReview = false;
+
+			for (int i = 0; i < rows.size(); i++) {
+				// ✅ Re-fetch rows inside the loop to avoid stale references
+				List<WebElement> currentRows = driver.findElements(By.xpath("//table/tbody/tr"));
+				
+				// ✅ Check if index is within bounds before accessing
+				if (i >= currentRows.size()) {
+					break;
+				}
+				
+				WebElement table_row = currentRows.get(i);
+
+				if (table_row.getText().contains("Review")) {
+
+					foundReview = true;
+					anyReviewFound = true;
+
+					WebElement threeDotButton = table_row
+							.findElement(By.xpath(".//button[.//span[text()='Open menu']]"));
+
+					threeDotButton.click();
+					wait.until(ExpectedConditions.elementToBeClickable(Review_Duplicate_option)).click();
+					wait.until(ExpectedConditions.elementToBeClickable(Merge_Button)).click();
+					
+					// ✅ Wait for the row to be removed from the table
+					wait.until(ExpectedConditions.stalenessOf(table_row));
+
+					break; // Exit loop after processing one merge
+				}
+			}
+			
+			// ✅ Exit outer loop if no review found in this iteration
+			if (!foundReview) {
+				break;
+			}
+		}
+	return anyReviewFound;
+}
+    
+	  public void click_Merge_Button() {
+			wait.until(ExpectedConditions.elementToBeClickable(Merge_Button)).click();
+	    }
+	    
+	    public void click_Cancel_Button() {
+	    			wait.until(ExpectedConditions.elementToBeClickable(Cancel_Button)).click();
+	    }
+	    
+		public boolean verify_Contact_pop_up_cancel() throws Throwable {
+			boolean anyReviewFound = false;
+			int maxAttempts = 10; // ✅ Added: Prevent infinite loops
+			int attempts = 0;
+
+			while (attempts < maxAttempts) {
+
+				attempts++;
+
+				// ✅ Re-fetch rows every iteration
+				List<WebElement> rows = driver.findElements(By.xpath("//table/tbody/tr"));
+				
+				boolean foundReview = false;
+
+				for (int i = 0; i < rows.size(); i++) {
+					// ✅ Re-fetch rows inside the loop to avoid stale references
+					List<WebElement> currentRows = driver.findElements(By.xpath("//table/tbody/tr"));
+					
+					// ✅ Check if index is within bounds before accessing
+					if (i >= currentRows.size()) {
+						break;
+					}
+					
+					WebElement table_row = currentRows.get(i);
+
+					if (table_row.getText().contains("Review")) {
+
+						foundReview = true;
+						anyReviewFound = true;
+
+						WebElement threeDotButton = table_row
+								.findElement(By.xpath(".//button[.//span[text()='Open menu']]"));
+
+						threeDotButton.click();
+						wait.until(ExpectedConditions.elementToBeClickable(Review_Duplicate_option)).click();
+						wait.until(ExpectedConditions.elementToBeClickable(Cancel_Button)).click();
+						
+						// ✅ Wait for the row to be removed from the table
+						//wait.until(ExpectedConditions.stalenessOf(table_row));
+
+						break; // Exit loop after processing one merge
+					}
+				}
+				
+				// ✅ Exit outer loop if no review found in this iteration
+				if (!foundReview) {
+					break;
+				}
+			}
+		return anyReviewFound;
+	}
+	    
+
+					
+	    
 }

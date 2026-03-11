@@ -28,5 +28,19 @@ public class ContactDashboard_SD
 		contactDashboard.verify_Duplicate_Contact_Added();
 	    
 	}
+	
+
+	@When("User merge the contact")
+	public void user_merge_the_contact() throws Throwable {
+		contactDashboard.verify_Contact_Merged();
+		
+	}
+	
+
+	@When("User cancel merge contact pop-up")
+	public void userCancelsMergePopup() throws Throwable {
+		contactDashboard.verify_Contact_pop_up_cancel();
+	}
+
 
 }

@@ -37,11 +37,8 @@ public class Download_Upload_SD {
 
 	@When("User clicks on upload template button")
 	public void user_Clicks_On_Upload_Template_Button() {
-		
 		Download_upload_page.click_Upload_Excel_Button();
-		Download_upload_page.click_Select_Source_Dropdown_under_Upload_Excel();
-		//Download_upload_page.click_Select_Source_Dropdown_under_Upload_Excel();
-		//Download_upload_page.click_Choose_File_Button_under_Upload_Excel();
+		// select_source() method now handles dropdown click and file selection
 		Download_upload_page.select_source();
 	}
 	
